@@ -31,9 +31,13 @@ try {
   process.exit(1);
 }
 
+// Guard: the submitted line has to fit within 1-200 non-blank
+// characters. Anything longer, empty, or whitespace-only is rejected
+// here, before any output file is written, so an invalid entry can
+// never be copied out by mistake.
 const length = [...text].length;
 if (length < 1 || length > 200) {
-  console.error(`error: entry must be 1-200 characters, got ${length}`);
+  console.error(`error: entry.txt must be 1-200 non-blank characters, got ${length} — shorten the line to fit`);
   process.exit(1);
 }
 if (text.trim().length === 0) {
